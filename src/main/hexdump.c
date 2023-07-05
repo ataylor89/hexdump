@@ -28,11 +28,6 @@ char* hexdump(char* str)
                 sprintf(ptr, "%*c", num_spaces, ' ');
                 ptr += num_spaces;
             }
-            else if (j == 15)
-            {
-                sprintf(ptr, "%02hhx ", str[i + j]);
-                ptr += 3;
-            }
             else if (j % 2 == 1)
             {
                 sprintf(ptr, "%02hhx ", str[i + j]);
