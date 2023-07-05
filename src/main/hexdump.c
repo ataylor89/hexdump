@@ -47,12 +47,7 @@ char* _hexdump(char* str)
         for (j = 0; j < 16 && i + j < size; j++)
         {
             char ch = isalnum(str[i + j]) ? str[i + j] : '.';
-            if (i + j == size - 1)
-            {
-                sprintf(ptr, "%c", ch);
-                ptr += 1;
-            }
-            else if (j == 15)
+            if (j == 15 && i + j < size - 1)
             {
                 sprintf(ptr, "%c\n", ch);
                 ptr += 2;
