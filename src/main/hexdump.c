@@ -58,5 +58,6 @@ char* hexdump(char* str)
         i += j;
         line += 16;
     }
+
     return buffer;
 }
