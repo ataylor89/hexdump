@@ -4,12 +4,11 @@
 #include <string.h>
 #include <ctype.h>
 
-char* hexdump(char* str)
+char* hexdump(char* str, int size)
 {
-    int i, j, size, line;
+    int i, j, line;
     char *buffer, *ptr;
 
-    size = strlen(str);
     line = 0;
     buffer = (char *) malloc(sizeof(char) * size * 10);
     ptr = buffer;

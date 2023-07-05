@@ -1,1 +1,1 @@
-char* hexdump(char* str);
+char* hexdump(char* str, int size);

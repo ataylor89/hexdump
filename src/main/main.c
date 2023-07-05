@@ -24,7 +24,7 @@ int main(int argc, char** argv)
     fseek(file, 0, SEEK_SET);
     fread(filecontents, 1, filesize, file);
 
-    result = hexdump(filecontents);
+    result = hexdump(filecontents, filesize);
 
     printf("%s\n", result);
 
