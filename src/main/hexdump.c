@@ -1,9 +1,10 @@
 #include "hexdump.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 
-char* _hexdump(char* str)
+char* hexdump(char* str)
 {
     int i, j, size, line;
     char *buffer, *ptr;
@@ -63,20 +64,4 @@ char* _hexdump(char* str)
         line += 16;
     }
     return buffer;
-}
-
-char* hexdump(FILE* file)
-{
-    int size;
-    char *buffer;
-
-    fseek(file, 0, SEEK_END);
-
-    size = ftell(file);
-    buffer = (char *) malloc(sizeof(char) * size);
-
-    fseek(file, 0, SEEK_SET);
-    fread(buffer, 1, size, file);
-
-    return _hexdump(buffer);
 }
