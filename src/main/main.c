@@ -22,7 +22,7 @@ int main(int argc, char** argv)
     fseek(file, 0, SEEK_END);
     filesize = ftell(file);
     fseek(file, 0, SEEK_SET);
-    buffer = (char *) malloc(sizeof(char) * PARTITION_LENGTH);
+    buffer = (char *) malloc(PARTITION_LENGTH);
 
     while (offset < filesize)
     {
