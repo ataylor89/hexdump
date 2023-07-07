@@ -8,7 +8,7 @@ HEXDUMP* hexdump(char* str, int size, int line_pos)
 {
     HEXDUMP *dump;
     char *ptr;
-    int i, j;
+    int i, j, num_spaces;
 
     dump = (HEXDUMP *) malloc(sizeof(HEXDUMP));
     dump->buffer = (char *) malloc(sizeof(char) * size * 10);
@@ -24,7 +24,7 @@ HEXDUMP* hexdump(char* str, int size, int line_pos)
         { 
             if (i + j > size - 1)
             {
-                int num_spaces = (j % 2 == 1) ? 3 : 2;
+                num_spaces = (j % 2 == 1) ? 3 : 2;
                 sprintf(ptr, "%*c", num_spaces, ' ');
                 ptr += num_spaces;
             }
