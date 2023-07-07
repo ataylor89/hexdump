@@ -4,18 +4,19 @@
 #include <string.h>
 #include <ctype.h>
 
-char* hexdump(char* str, int size)
+HEXDUMP* hexdump(char* str, int size, int line_pos)
 {
-    int i, j, line;
-    char *buffer, *ptr;
+    HEXDUMP *dump;
+    char *ptr;
+    int i, j;
 
-    line = 0;
-    buffer = (char *) malloc(sizeof(char) * size * 10);
-    ptr = buffer;
+    dump = (HEXDUMP *) malloc(sizeof(HEXDUMP));
+    dump->buffer = (char *) malloc(sizeof(char) * size * 10);
+    ptr = dump->buffer;
 
     for (i = 0; i < size;)
     {
-        sprintf(ptr, "%08x: ", line);
+        sprintf(ptr, "%08x: ", line_pos);
 
         ptr += 10;
 
@@ -41,7 +42,7 @@ char* hexdump(char* str, int size)
 
         for (j = 0; j < 16 && i + j < size; j++)
         {
-            char ch = isspace(str[i + j]) ? '.' : str[i + j];
+            char ch = isprint(str[i + j]) ? str[i + j] : '.';
             if (j == 15 && i + j < size - 1)
             {
                 sprintf(ptr, "%c\n", ch);
@@ -55,8 +56,9 @@ char* hexdump(char* str, int size)
         }
 
         i += j;
-        line += 16;
+        line_pos += 16;
     }
 
-    return buffer;
+    dump->size = ptr - dump->buffer;
+    return dump;
 }

@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MAX_SEG_LENGTH 512
+
 int main(int argc, char** argv)
 {
     if (argc != 2)
@@ -10,23 +12,38 @@ int main(int argc, char** argv)
         return 0;
     }
 
+    HEXDUMP *dump;
     FILE *file;
-    int filesize;
-    char *filecontents, *result;
+    int offset, filesize, n;
+    char *buffer;
 
+    offset = 0;
     file = fopen(argv[1], "r");
-
     fseek(file, 0, SEEK_END);
-
     filesize = ftell(file);
-    filecontents = (char *) malloc(sizeof(char) * filesize);
-
     fseek(file, 0, SEEK_SET);
-    fread(filecontents, 1, filesize, file);
+    buffer = (char *) malloc(sizeof(char) * MAX_SEG_LENGTH);
 
-    result = hexdump(filecontents, filesize);
+    while (offset < filesize)
+    {
+        n = (filesize - offset) < MAX_SEG_LENGTH ? filesize - offset : MAX_SEG_LENGTH;
 
-    printf("%s\n", result);
+        if (fread(buffer, 1, n, file) != n)
+        {
+            fprintf(stderr, "Error reading from file.\n");
+            return 0;
+        }
+
+        dump = hexdump(buffer, n, offset);
+        offset += n;
+
+        fwrite(dump->buffer, 1, dump->size, stdout);
+
+        if (offset < filesize)
+        {
+            printf("\n*\n");
+        }
+    }
 
     return 0;
 }
