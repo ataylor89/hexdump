@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_SEG_LENGTH 512
+#define PARTITION_LENGTH 512
 
 int main(int argc, char** argv)
 {
@@ -17,16 +17,16 @@ int main(int argc, char** argv)
     int offset, filesize, n;
     char *buffer;
 
-    offset = 0;
     file = fopen(argv[1], "r");
+    offset = 0;
     fseek(file, 0, SEEK_END);
     filesize = ftell(file);
     fseek(file, 0, SEEK_SET);
-    buffer = (char *) malloc(sizeof(char) * MAX_SEG_LENGTH);
+    buffer = (char *) malloc(sizeof(char) * PARTITION_LENGTH);
 
     while (offset < filesize)
     {
-        n = (filesize - offset) < MAX_SEG_LENGTH ? filesize - offset : MAX_SEG_LENGTH;
+        n = (filesize - offset) < PARTITION_LENGTH ? filesize - offset : PARTITION_LENGTH;
 
         if (fread(buffer, 1, n, file) != n)
         {
