@@ -8,7 +8,7 @@ int main(int argc, char** argv)
 {
     if (argc != 2)
     {
-        printf("Usage: %s <path_to_file>\n", argv[0]);
+        printf("Usage: %s <filename>\n", argv[0]);
         return 0;
     }
 
@@ -17,11 +17,17 @@ int main(int argc, char** argv)
     int offset, filesize, n;
     char *buffer;
 
-    file = fopen(argv[1], "r");
+    if ((file = fopen(argv[1], "r")) == NULL)
+    {
+        fprintf(stderr, "Error opening file.\n");
+        return 1;
+    }
+
     offset = 0;
     fseek(file, 0, SEEK_END);
     filesize = ftell(file);
     fseek(file, 0, SEEK_SET);
+
     buffer = (char *) malloc(PARTITION_LENGTH);
 
     while (offset < filesize)
@@ -31,19 +37,21 @@ int main(int argc, char** argv)
         if (fread(buffer, 1, n, file) != n)
         {
             fprintf(stderr, "Error reading from file.\n");
-            return 0;
+            return 1;
         }
 
         dump = hexdump(buffer, n, offset);
-        offset += n;
-
         fwrite(dump->buffer, 1, dump->size, stdout);
+
+        offset += n;
 
         if (offset < filesize)
         {
             printf("\n*\n");
         }
     }
+
+    fclose(file);
 
     return 0;
 }
