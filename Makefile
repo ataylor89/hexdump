@@ -3,4 +3,4 @@ clean:
 
 install:
 	if [ ! -d bin ]; then mkdir bin; fi;
-	gcc src/main/*.c -o bin/hexdump
+	gcc src/*.c -o bin/hexdump
