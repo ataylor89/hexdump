@@ -1,7 +1,9 @@
+#define PARTITION_LENGTH 512
+
 typedef struct
 {
     char *buffer;
     int size;
-} HEXDUMP;
+} Hexdump;
 
-HEXDUMP* hexdump(char* str, int size, int line_pos);
+Hexdump* hexdump(char* str, int size, int line_pos);

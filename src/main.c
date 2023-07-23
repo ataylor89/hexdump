@@ -2,8 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define PARTITION_LENGTH 512
-
 int main(int argc, char** argv)
 {
     if (argc != 2)
@@ -12,7 +10,7 @@ int main(int argc, char** argv)
         return 0;
     }
 
-    HEXDUMP *dump;
+    Hexdump *dump;
     FILE *file;
     int offset, filesize, n;
     char *buffer;

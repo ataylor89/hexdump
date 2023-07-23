@@ -4,13 +4,13 @@
 #include <string.h>
 #include <ctype.h>
 
-HEXDUMP* hexdump(char* str, int size, int line_pos)
+Hexdump* hexdump(char* str, int size, int line_pos)
 {
-    HEXDUMP *dump;
+    Hexdump *dump;
     char *ptr;
     int i, j, num_spaces;
 
-    dump = (HEXDUMP *) malloc(sizeof(HEXDUMP));
+    dump = (Hexdump *) malloc(sizeof(Hexdump));
     dump->buffer = (char *) malloc(sizeof(char) * size * 10);
     ptr = dump->buffer;
 
